@@ -1,3 +1,13 @@
+var AppointmentDetails = React.createClass({
+  render: function(){
+  var appointment = this.props.appointment;
+    return (
+      <div>
+
+      </div>
+    );
+  }
+});
 var UserImage = React.createClass({
     render: function() {
         return (<img src={this.props.image} alt="no image"className="img-responsive"/>);
@@ -37,8 +47,8 @@ var AppointmentRow = React.createClass({
   render: function(){
     var appointment = this.props.appointment
     return(<tr>
-           <td>{moment(appointment.created_at).format(this.props.fmttime)}</td>
-           <td>{moment(appointment.start).format(this.props.fmtdate)}</td>
+           <td>{moment(appointment.created_at).format(this.props.fmtdate)}</td>
+           <td>{moment(appointment.start).format(this.props.fmttime)}</td>
            <td>{appointment.physician_name}</td>
            <td><a>Edit</a></td>
            </tr>);
@@ -98,10 +108,21 @@ var APPOINTMENTS = [
     "id" : 696,
     "patient_id" : 17,
     "physician_id" : 13,
-    "start" : "2015-04-24T07:00:00-06:00",
-    "updated_at" : "2015-04-21T10:44:51-06:00",
+    "start" : "2015-04-24T10:00:00-06:00",
+    "updated_at" : "2015-04-21T12:44:51-06:00",
     "patient_name" :"Mike Ross",
     "physician_name" : "Alejandro Espinoza"
+  },
+  {
+    "created_at" : "2015-04-21T10:44:51-06:00",
+    "end" : "2015-04-24T07:30:00-06:00",
+    "id" : 697,
+    "patient_id" : 18,
+    "physician_id" : 15,
+    "start" : "2015-04-24T12:00:00-06:00",
+    "updated_at" : "2015-04-21T10:44:51-06:00",
+    "patient_name" :"Mike Ross",
+    "physician_name" : "Tadeo Barranco"
   }
 ];
 
