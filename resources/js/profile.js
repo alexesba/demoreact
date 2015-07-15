@@ -13,6 +13,7 @@ var MessageBox = React.createClass({
      }
    }
 });
+
 var AppointmentDetails = React.createClass({
   handleClick: function(){
     return RenderAll();
