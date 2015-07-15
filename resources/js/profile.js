@@ -1,10 +1,24 @@
+var MessageBox = React.createClass({
+  componentDidMount: function(){
+    this.state.show = false;
+  },
+  getInitialState: function(){
+    return { show: true, welcomeMessage: this.props.info.name + " Welcome to your dashboard!" }
+  },
+   render: function(){
+     if(this.state.show){
+      return (
+        <div className="alert alert-success" role="alert">{this.state.welcomeMessage}</div>
+      );
+     }
+   }
+});
 var AppointmentDetails = React.createClass({
   handleClick: function(){
     return RenderAll();
   },
   getDefaultProps: function () {
     return {
-      fmttime: 'h:mm:ss a',
       fmtdate: 'MMM Do YY'
     }
   },
@@ -17,10 +31,11 @@ var AppointmentDetails = React.createClass({
         </nav>
         <div className="container">
           <div className="container-fluid">
-            <ul>
-              <li>Last Appointment: {moment(appointment.updated_at).format(this.props.fmtdate)}</li>
-              <li>Patient Sympthoms: {appointment.patient_sympthoms}</li>
-              <li>Dr Name: {appointment.patient_sympthoms}</li>
+            <h1>Appointment Details</h1>
+            <ul className="list-group">
+              <li className="list-group-item">Last Appointment: {moment(appointment.updated_at).format(this.props.fmtdate)}</li>
+              <li className="list-group-item">Patient Sympthoms: {appointment.patient_sympthoms}</li>
+              <li className="list-group-item">Dr Name: {appointment.physician_name}</li>
             </ul>
             <button onClick={this.handleClick.bind(this)}>Go Back</button>
           </div>
@@ -29,11 +44,13 @@ var AppointmentDetails = React.createClass({
     );
   }
 });
+
 var UserImage = React.createClass({
     render: function() {
         return (<img src={this.props.image} alt="no image"className="img-responsive"/>);
     }
 });
+
 var UserInfo = React.createClass({
   render: function(){
     return (
@@ -70,11 +87,13 @@ var AppointmentRow = React.createClass({
   },
   render: function(){
     var appointment = this.props.appointment
-    return(<tr onClick={this.handleClick.bind(this, this.props.appointment)}>
-           <td>{moment(appointment.created_at).format(this.props.fmtdate)}</td>
-           <td>{moment(appointment.start).format(this.props.fmttime)}</td>
-           <td>{appointment.physician_name}</td>
-           </tr>);
+    return(
+      <tr onClick={this.handleClick.bind(this, this.props.appointment)}>
+        <td>{moment(appointment.created_at).format(this.props.fmtdate)}</td>
+        <td>{moment(appointment.start).format(this.props.fmttime)}</td>
+        <td>{appointment.physician_name}</td>
+      </tr>
+    );
   }
 });
 var AppointmentTable = React.createClass({
@@ -86,13 +105,15 @@ var AppointmentTable = React.createClass({
     return (
         <div className="table-responsive">
         <table className="table table-striped">
-            <thead>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Doctor Name</th>
-            </thead>
-            <tbody>{patientList}</tbody>
-          </table>
+          <thead>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Doctor Name</th>
+          </thead>
+          <tbody>
+            {patientList}
+          </tbody>
+        </table>
       </div>
     );
   }
@@ -105,7 +126,7 @@ var UserProfile = React.createClass({
         <nav className="navbar navbar-inverse navbar-fixed-top">
           <UserInfo info={this.props.userInfo}/>
         </nav>
-
+        <MessageBox info={this.props.userInfo}/>
         <AppointmentTable appointments={this.props.appointments}/>
       </div>
     );
