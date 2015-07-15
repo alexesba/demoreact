@@ -113,7 +113,7 @@ var AppointmentTable = React.createClass({
 
         <ol className="breadcrumb">
           <li>Home</li>
-          <li>Patient List</li>
+          <li>Upcoming patient appointments</li>
         </ol>
 
         <table className="table table-striped">
