@@ -1,9 +1,30 @@
 var AppointmentDetails = React.createClass({
+  handleClick: function(){
+    return RenderAll();
+  },
+  getDefaultProps: function () {
+    return {
+      fmttime: 'h:mm:ss a',
+      fmtdate: 'MMM Do YY'
+    }
+  },
   render: function(){
   var appointment = this.props.appointment;
     return (
       <div>
-
+        <nav className="navbar navbar-inverse navbar-fixed-top">
+          <UserInfo info={this.props.userInfo}/>
+        </nav>
+        <div className="container">
+          <div className="container-fluid">
+            <ul>
+              <li>Last Appointment: {moment(appointment.updated_at).format(this.props.fmtdate)}</li>
+              <li>Patient Sympthoms: {appointment.patient_sympthoms}</li>
+              <li>Dr Name: {appointment.patient_sympthoms}</li>
+            </ul>
+            <button onClick={this.handleClick.bind(this)}>Go Back</button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -38,6 +59,9 @@ var UserInfo = React.createClass({
   }
 })
 var AppointmentRow = React.createClass({
+  handleClick: function(appointment){
+    return React.render(<AppointmentDetails appointment={appointment} userInfo={userInfo}/>, document.body)
+  },
   getDefaultProps: function () {
     return {
       fmttime: 'h:mm:ss a',
@@ -46,11 +70,10 @@ var AppointmentRow = React.createClass({
   },
   render: function(){
     var appointment = this.props.appointment
-    return(<tr>
+    return(<tr onClick={this.handleClick.bind(this, this.props.appointment)}>
            <td>{moment(appointment.created_at).format(this.props.fmtdate)}</td>
            <td>{moment(appointment.start).format(this.props.fmttime)}</td>
            <td>{appointment.physician_name}</td>
-           <td><a>Edit</a></td>
            </tr>);
   }
 });
@@ -63,12 +86,10 @@ var AppointmentTable = React.createClass({
     return (
         <div className="table-responsive">
         <table className="table table-striped">
-
             <thead>
               <th>Date</th>
               <th>Time</th>
               <th>Doctor Name</th>
-              <th>Actions</th>
             </thead>
             <tbody>{patientList}</tbody>
           </table>
@@ -132,4 +153,9 @@ var userInfo = {
   image_url: "https://placeholdit.imgix.net/~text?txt=Profile%20Image&w=50&h=50"
 }
 
-React.render(<UserProfile appointments={APPOINTMENTS} userInfo={userInfo}/>, document.body)
+var RenderAll = function(){
+return React.render(<UserProfile appointments={APPOINTMENTS} userInfo={userInfo}/>, document.body);
+}
+
+
+RenderAll();
