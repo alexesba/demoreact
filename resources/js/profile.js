@@ -116,7 +116,7 @@ var AppointmentTable = React.createClass({
           <li>Upcoming patient appointments</li>
         </ol>
 
-        <table className="table table-striped">
+        <table className="table table-striped table-hover">
           <thead>
             <th>Date</th>
             <th>Time</th>
@@ -187,7 +187,7 @@ var userInfo = {
 }
 
 var RenderAll = function(){
-return React.render(<UserProfile appointments={APPOINTMENTS} userInfo={userInfo}/>, document.body);
+  return React.render(<UserProfile appointments={APPOINTMENTS} userInfo={userInfo}/>, document.body);
 }
 
 
