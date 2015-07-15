@@ -1,6 +1,6 @@
 var UserImage = React.createClass({
     render: function() {
-        return (<div><img src={this.props.image} alt="XXX"className="img-responsive"/></div>);
+        return (<img src={this.props.image} alt="no image"className="img-responsive"/>);
     }
 });
 var UserInfo = React.createClass({
@@ -14,7 +14,7 @@ var UserInfo = React.createClass({
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-          <a className="navbar-brand" href="#"><UserImage image={this.props.image_url}/></a>
+          <a className="navbar-brand" href="#"><UserImage image={this.props.info.image_url}/></a>
         </div>
         <div id="navbar" className="navbar-collapse collapse">
           <ul className="nav navbar-nav navbar-right">
@@ -28,12 +28,19 @@ var UserInfo = React.createClass({
   }
 })
 var AppointmentRow = React.createClass({
+  getDefaultProps: function () {
+    return {
+      fmttime: 'h:mm:ss a',
+      fmtdate: 'MMM Do YY'
+    }
+  },
   render: function(){
     var appointment = this.props.appointment
     return(<tr>
-           <td>{appointment.created_at}</td>
-           <td>{appointment.start}</td>
+           <td>{moment(appointment.created_at).format(this.props.fmttime)}</td>
+           <td>{moment(appointment.start).format(this.props.fmtdate)}</td>
            <td>{appointment.physician_name}</td>
+           <td><a>Edit</a></td>
            </tr>);
   }
 });
@@ -44,14 +51,18 @@ var AppointmentTable = React.createClass({
       patientList.push(<AppointmentRow appointment={appointment} key={appointment.id} />);
     }.bind(this));
     return (
-      <table>
-        <thead>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Doctor Name</th>
-        </thead>
-        <tbody>{patientList}</tbody>
-      </table>
+        <div className="table-responsive">
+        <table className="table table-striped">
+
+            <thead>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Doctor Name</th>
+              <th>Actions</th>
+            </thead>
+            <tbody>{patientList}</tbody>
+          </table>
+      </div>
     );
   }
 });
@@ -97,7 +108,7 @@ var APPOINTMENTS = [
 var userInfo = {
   name: "Dr. Jonh",
   email: "jonh@example.com",
-  image_url: "https://placeholdit.imgix.net/~text?txt=Profile%20Image&w=150&h=150"
+  image_url: "https://placeholdit.imgix.net/~text?txt=Profile%20Image&w=50&h=50"
 }
 
-React.render(<UserProfile appointments={APPOINTMENTS} userinfo={userInfo}/>, document.body)
+React.render(<UserProfile appointments={APPOINTMENTS} userInfo={userInfo}/>, document.body)

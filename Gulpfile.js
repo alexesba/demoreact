@@ -7,7 +7,7 @@ var gulp = require('gulp'),
 var config = {
     sassPath: './resources/sass',
     bowerDir: './bower_components',
-    jsDirs: ["./bower_components/react/*.js", "./resources/js/**/*.js"]
+    jsDirs: ["./bower_components/moment/min/moment.min.js", "./bower_components/react/*.js", "./resources/js/**/*.js"]
 }
 
 gulp.task('bower', function() {
