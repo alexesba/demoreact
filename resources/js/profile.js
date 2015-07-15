@@ -48,7 +48,11 @@ var AppointmentDetails = React.createClass({
 
 var UserImage = React.createClass({
     render: function() {
-        return (<img src={this.props.image} alt="no image"className="img-responsive"/>);
+        return (
+          <li className="dropdown">
+            <img src={this.props.image} alt="no image"className="profile-image img-circle"/>
+          </li>
+        );
     }
 });
 
@@ -63,10 +67,11 @@ var UserInfo = React.createClass({
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-          <a className="navbar-brand" href="#"><UserImage image={this.props.info.image_url}/></a>
+          <a className="navbar-brand" href="#">Dashboard</a>
         </div>
         <div id="navbar" className="navbar-collapse collapse">
           <ul className="nav navbar-nav navbar-right">
+            <UserImage image={this.props.info.image_url}/>
             <li><a href="#">Settings</a></li>
             <li><a href="#">Help</a></li>
           </ul>
@@ -105,6 +110,12 @@ var AppointmentTable = React.createClass({
     }.bind(this));
     return (
         <div className="table-responsive">
+
+        <ol className="breadcrumb">
+          <li>Home</li>
+          <li>Patient List</li>
+        </ol>
+
         <table className="table table-striped">
           <thead>
             <th>Date</th>
@@ -172,7 +183,7 @@ var APPOINTMENTS = [
 var userInfo = {
   name: "Dr. Jonh",
   email: "jonh@example.com",
-  image_url: "https://placeholdit.imgix.net/~text?txt=Profile%20Image&w=50&h=50"
+  image_url: "https://secure.gravatar.com/avatar/2c7d903d71d0d73f7668df5d6398c412?s=64"
 }
 
 var RenderAll = function(){
